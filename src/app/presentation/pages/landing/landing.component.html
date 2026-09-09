@@ -1,0 +1,120 @@
+<!-- NAV -->
+<nav class="navbar-custom">
+  <div class="container d-flex justify-content-between align-items-center">
+    <a href="#" class="brand">Acl<span>a</span>ra</a>
+    <div class="d-none d-md-flex align-items-center">
+      <a href="#como-funciona" class="nav-link-custom">Cómo funciona</a>
+      <a href="#funciones" class="nav-link-custom">Funciones</a>
+      <a href="#" class="nav-link-custom">Precios</a>
+      <a href="#" class="btn-ghost-custom ms-4">Entrar</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-6">
+        <div class="hero-eyebrow">Para autónomos y pequeños negocios</div>
+        <h1>Cada factura, revisada antes de que Hacienda te lo pida.</h1>
+        <p class="lead-custom">
+          Sube tus facturas y en segundos sabrás si cumplen la normativa, cuánto IVA corresponde
+          y qué falta corregir — explicado en lenguaje sencillo, sin depender de tu gestor para cada duda.
+        </p>
+        <div class="d-flex hero-actions gap-3">
+          <button mat-flat-button class="btn-primary-custom" (click)="onProbar()">Probar con una factura</button>
+          <a href="#como-funciona" class="btn-ghost-custom">Ver cómo funciona</a>
+        </div>
+        <div class="hero-note">Sin registro para la primera prueba · Datos tratados conforme al RGPD</div>
+      </div>
+      <div class="col-lg-6">
+        <div class="doc-card">
+          <div class="doc-card-header">
+            <span class="doc-title">Factura #{{ demoInvoice.numero }}</span>
+            <span class="doc-status">{{ demoInvoice.estado }}</span>
+          </div>
+          <div class="check-row" *ngFor="let campo of demoInvoice.campos">
+            <span class="label">
+              <span class="check-icon" [ngClass]="campo.ok ? 'ok' : 'warn'">
+                <mat-icon *ngIf="campo.ok">check</mat-icon>
+                <mat-icon *ngIf="!campo.ok">priority_high</mat-icon>
+              </span>
+              {{ campo.nombre }}
+            </span>
+            <span class="value">{{ campo.valor }}</span>
+          </div>
+          <div class="doc-total">
+            <span class="value" style="font-size:0.85rem;">Total con IVA</span>
+            <span class="amount">{{ demoInvoice.total }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="container">
+    <div class="row text-center text-md-start">
+      <div class="col-6 col-md-3 item mb-3 mb-md-0"><strong>RD 1619/2012</strong>Normativa de facturación</div>
+      <div class="col-6 col-md-3 item mb-3 mb-md-0"><strong>&lt; 10 s</strong>Por factura validada</div>
+      <div class="col-6 col-md-3 item"><strong>4</strong>Regímenes de IVA cubiertos</div>
+      <div class="col-6 col-md-3 item"><strong>100%</strong>Explicado en lenguaje claro</div>
+    </div>
+  </div>
+</div>
+
+<!-- STEPS -->
+<section class="steps-section" id="como-funciona">
+  <div class="container">
+    <div class="section-heading">
+      <h2>Tres pasos, sin curva de aprendizaje</h2>
+      <p>No hace falta saber de fiscalidad. Aclara traduce la normativa a algo que puedes entender y actuar de inmediato.</p>
+    </div>
+    <div class="step-item" *ngFor="let paso of pasos; let i = index">
+      <div class="step-number">{{ (i + 1) | number:'2.0-0' }}</div>
+      <div>
+        <h3>{{ paso.titulo }}</h3>
+        <p>{{ paso.descripcion }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features-section" id="funciones">
+  <div class="container">
+    <div class="section-heading">
+      <h2>Pensado para el día a día de un autónomo</h2>
+      <p>No es una hoja de cálculo con IA encima. Cada función responde a un problema concreto de facturación.</p>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-4 feature-item" *ngFor="let f of funciones">
+        <h3>{{ f.titulo }}</h3>
+        <p>{{ f.descripcion }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="container">
+    <h2>Prueba con tu próxima factura</h2>
+    <p>Sin coste, sin compromiso. Verás el resultado antes de decidir si te registras.</p>
+    <button mat-flat-button class="btn-primary-custom" (click)="onProbar()">Probar Aclara gratis</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
+    <div>© 2026 Aclara. Herramienta independiente, no sustituye asesoramiento fiscal profesional.</div>
+    <div class="d-flex gap-4">
+      <a href="#" class="nav-link-custom" style="margin-left:0;">Privacidad</a>
+      <a href="#" class="nav-link-custom" style="margin-left:0;">Contacto</a>
+    </div>
+  </div>
+</footer>

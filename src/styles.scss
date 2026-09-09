@@ -1,1 +1,42 @@
-/* You can add global styles to this file, and also import other style files */
+/* Añadir esto a src/styles.scss del proyecto Angular */
+
+@import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  --color-bg: #F7F8FA;
+  --color-surface: #FFFFFF;
+  --color-primary: #1B2A4A;
+  --color-primary-light: #2E4370;
+  --color-accent: #B8925A;
+  --color-text: #24303F;
+  --color-text-muted: #5B6472;
+  --color-border: #E3E6EA;
+  --color-success: #2F7D5C;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  color: var(--color-text);
+  background: var(--color-bg);
+  line-height: 1.6;
+  margin: 0;
+}
+
+h1, h2, h3, .serif {
+  font-family: 'Source Serif 4', serif;
+  font-weight: 500;
+  color: var(--color-primary);
+  letter-spacing: -0.01em;
+}
+
+a {
+  text-decoration: none;
+}
