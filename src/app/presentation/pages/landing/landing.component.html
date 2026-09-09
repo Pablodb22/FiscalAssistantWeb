@@ -2,11 +2,9 @@
 <nav class="navbar-custom">
   <div class="container d-flex justify-content-between align-items-center">
     <a href="#" class="brand">Acl<span>a</span>ra</a>
-    <div class="d-none d-md-flex align-items-center">
-      <a href="#como-funciona" class="nav-link-custom">Cómo funciona</a>
-      <a href="#funciones" class="nav-link-custom">Funciones</a>
-      <a href="#" class="nav-link-custom">Precios</a>
-      <a href="#" class="btn-ghost-custom ms-4">Entrar</a>
+    <div class="d-none d-md-flex align-items-center">      
+      <a href="/login" class="btn-ghost-custom ms-4">Entrar</a>
+      <a href="/registro" class="btn-ghost-custom ms-4">Registrarse</a>
     </div>
   </div>
 </nav>
@@ -23,8 +21,7 @@
           y qué falta corregir — explicado en lenguaje sencillo, sin depender de tu gestor para cada duda.
         </p>
         <div class="d-flex hero-actions gap-3">
-          <button mat-flat-button class="btn-primary-custom" (click)="onProbar()">Probar con una factura</button>
-          <a href="#como-funciona" class="btn-ghost-custom">Ver cómo funciona</a>
+          <a href="/dashboard"><button mat-flat-button class="btn-primary-custom" >Probar con una factura</button></a>
         </div>
         <div class="hero-note">Sin registro para la primera prueba · Datos tratados conforme al RGPD</div>
       </div>
@@ -104,7 +101,7 @@
   <div class="container">
     <h2>Prueba con tu próxima factura</h2>
     <p>Sin coste, sin compromiso. Verás el resultado antes de decidir si te registras.</p>
-    <button mat-flat-button class="btn-primary-custom" (click)="onProbar()">Probar Aclara gratis</button>
+    <a href="/dashboard"><button mat-flat-button class="btn-primary-custom">Probar Aclara gratis</button></a>
   </div>
 </section>
 
