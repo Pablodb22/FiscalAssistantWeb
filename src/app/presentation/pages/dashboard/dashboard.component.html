@@ -1,1 +1,125 @@
-<p>dashboard works!</p>
+<div class="app-shell">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-brand">Aclara</div>
+    <nav class="sidebar-nav">
+      <a href="#" [class.active]="navItems[0].active">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>
+        Resumen
+      </a>
+      <a href="#">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 3h9l4 4v14H6z"/><path d="M15 3v4h4"/><path d="M9 12h6M9 16h6"/></svg>
+        Facturas
+      </a>
+      <a href="#">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="16" rx="1.5"/><path d="M3 9h18M8 3v4M16 3v4"/></svg>
+        Plazos
+      </a>
+      <a href="#">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 20V10M11 20V4M18 20v-7"/></svg>
+        Informes
+      </a>
+      <a href="#">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.87l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.7 1.7 0 0 0-1.87-.34 1.7 1.7 0 0 0-1.03 1.56V21a2 2 0 1 1-4 0v-.09A1.7 1.7 0 0 0 8.98 19a1.7 1.7 0 0 0-1.87.34l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.7 1.7 0 0 0 4.6 15a1.7 1.7 0 0 0-1.56-1.03H3a2 2 0 1 1 0-4h.09A1.7 1.7 0 0 0 4.6 8.98a1.7 1.7 0 0 0-.34-1.87l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.7 1.7 0 0 0 9 4.6a1.7 1.7 0 0 0 1.03-1.56V3a2 2 0 1 1 4 0v.09A1.7 1.7 0 0 0 15 4.6a1.7 1.7 0 0 0 1.87-.34l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.7 1.7 0 0 0 19.4 9c.1.65.55 1.2 1.56 1.03H21a2 2 0 1 1 0 4h-.09A1.7 1.7 0 0 0 19.4 15z"/></svg>
+        Ajustes
+      </a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="sidebar-user">
+        <div class="avatar">{{ usuario.iniciales }}</div>
+        <div>
+          <div class="name">{{ usuario.nombre }}</div>
+          <div class="role">{{ usuario.rol }}</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="main">    
+
+    <div class="content">
+
+      <!-- MAIN UPLOAD DROPZONE -->
+      <div class="dropzone-hero" (click)="onSubirFactura()">
+        <div class="icon-circle-lg">
+          <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 18a4.5 4.5 0 0 1-1-8.9A5 5 0 0 1 16 8h.5a3.5 3.5 0 0 1 .5 7"/><path d="M12 12v7M9 15l3-3 3 3"/></svg>
+        </div>
+        <div class="main-text">Arrastra tu factura aquí</div>
+        <p>o haz clic para seleccionar un archivo desde tu equipo</p>
+        <button mat-flat-button class="btn-primary-custom" (click)="onSubirFactura(); $event.stopPropagation()">
+          <svg class="icon-svg" style="width:18px;height:18px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 16V4M8 8l4-4 4 4"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg>
+          Seleccionar archivo
+        </button>
+        <div class="formats">Formatos admitidos: PDF, JPG, PNG · Máx. 10 MB</div>
+      </div>
+
+      <!-- STAT CARDS -->
+      <div class="row g-3">
+        <div class="col-6 col-lg-3" *ngFor="let stat of stats">
+          <div class="stat-card">
+            <div class="stat-label">{{ stat.label }}
+              <span class="stat-icon" [ngSwitch]="stat.icon">
+                <svg *ngSwitchCase="'description'" class="icon-svg" style="width:16px;height:16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 3h9l4 4v14H6z"/><path d="M15 3v4h4"/><path d="M9 12h6M9 16h6"/></svg>
+                <svg *ngSwitchCase="'priority_high'" class="icon-svg" style="width:16px;height:16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l9 17H3z"/><path d="M12 10v4"/><circle cx="12" cy="17" r="0.6" fill="currentColor" stroke="none"/></svg>
+                <svg *ngSwitchCase="'event'" class="icon-svg" style="width:16px;height:16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="16" rx="1.5"/><path d="M3 9h18M8 3v4M16 3v4"/></svg>
+                <span *ngSwitchCase="'euro'" style="font-weight:700; font-size:13px;">€</span>
+              </span>
+            </div>
+            <div class="stat-value">{{ stat.valor }}</div>
+            <div class="stat-trend" [ngClass]="stat.tendenciaTipo">{{ stat.tendencia }}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row g-3 mt-1">
+        <!-- INVOICE TABLE -->
+        <div class="col-lg-8">
+          <div class="panel">
+            <div class="panel-header">
+              <h2>Facturas recientes</h2>
+              <a href="#" class="link-action">Ver todas</a>
+            </div>
+            <table class="invoice-table">
+              <thead>
+                <tr>
+                  <th>Factura</th>
+                  <th>Cliente</th>
+                  <th>Importe</th>
+                  <th>Estado</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let f of facturasRecientes">
+                  <td><span class="invoice-num">{{ f.numero }}</span><br><span class="invoice-sub">{{ f.fecha }}</span></td>
+                  <td>{{ f.cliente }}</td>
+                  <td>{{ f.importe }}</td>
+                  <td><span class="status-pill" [ngClass]="f.valida ? 'valida' : 'revisar'">{{ f.valida ? 'Válida' : 'Revisar' }}</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- SIDE COLUMN -->
+        <div class="col-lg-4">
+          <div class="panel">
+            <div class="panel-header">
+              <h2>Próximos plazos</h2>
+              <a href="#" class="link-action">Calendario</a>
+            </div>
+            <div class="deadline-item" *ngFor="let plazo of proximosPlazos">
+              <div>
+                <div class="model">{{ plazo.modelo }}</div>
+                <div class="desc">{{ plazo.descripcion }}</div>
+              </div>
+              <div class="date-badge">{{ plazo.fecha }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
