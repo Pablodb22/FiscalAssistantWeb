@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
+import { NgxDropzoneModule, NgxDropzoneChangeEvent } from 'ngx-dropzone';
 
 interface NavItem {
   label: string;
@@ -12,7 +13,6 @@ interface Stat {
   label: string;
   valor: string;
   icon: string;
-  tendencia: string;
   tendenciaTipo: 'up' | 'warn' | '';
 }
 
@@ -33,7 +33,7 @@ interface Plazo {
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, MatButtonModule],
+  imports: [CommonModule, MatButtonModule, NgxDropzoneModule],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
@@ -56,10 +56,10 @@ export class DashboardComponent {
   ];
 
   stats: Stat[] = [
-    { label: 'Facturas este mes', valor: '24', icon: 'description', tendencia: '+6 respecto al mes pasado', tendenciaTipo: 'up' },
-    { label: 'Con incidencias', valor: '3', icon: 'priority_high', tendencia: 'Requieren revisión', tendenciaTipo: 'warn' },
-    { label: 'IVA repercutido', valor: '1.284 €', icon: 'euro', tendencia: 'Trimestre en curso', tendenciaTipo: '' },
-    { label: 'Próximo plazo', valor: 'Modelo 303', icon: 'event', tendencia: 'Vence en 12 días', tendenciaTipo: 'warn' },
+    { label: 'Facturas este mes', valor: '24', icon: 'description', tendenciaTipo: 'up' },
+    { label: 'Con incidencias', valor: '3', icon: 'priority_high', tendenciaTipo: 'warn' },
+    { label: 'IVA repercutido', valor: '1.284 €', icon: 'euro', tendenciaTipo: '' },
+    { label: 'Próximo plazo', valor: 'Modelo 303', icon: 'event', tendenciaTipo: 'warn' },
   ];
 
   facturasRecientes: FacturaResumen[] = [
@@ -71,12 +71,38 @@ export class DashboardComponent {
   ];
 
   proximosPlazos: Plazo[] = [
-    { modelo: 'Modelo 303', descripcion: 'IVA — tercer trimestre', fecha: '21 oct.' },
-    { modelo: 'Modelo 130', descripcion: 'IRPF — pago fraccionado', fecha: '21 oct.' },
-    { modelo: 'Modelo 349', descripcion: 'Operaciones intracomunitarias', fecha: '20 nov.' },
+    { modelo: 'Modelo 303', descripcion: 'IVA — pago trimestral (3T)', fecha: '20 oct.' },
+    { modelo: 'Modelo 130', descripcion: 'IRPF — pago fraccionado (3T)', fecha: '20 oct.' },
+    { modelo: 'Modelo 111', descripcion: 'Retenciones IRPF — trabajadores y profesionales (3T)', fecha: '20 oct.' },
+    { modelo: 'Modelo 349', descripcion: 'Operaciones intracomunitarias (3T)', fecha: '20 oct.' },
+    { modelo: 'Modelo 390', descripcion: 'Resumen anual de IVA', fecha: '30 ene.' },
+    { modelo: 'Modelo 347', descripcion: 'Operaciones con terceros > 3.005,06 €', fecha: '28 feb.' },
+    { modelo: 'Modelo 100', descripcion: 'Declaración de la Renta (IRPF anual)', fecha: '30 jun.' },
   ];
 
-  onSubirFactura(): void {
-    // Conectar con la ruta/acción real de subida de factura
+  // Archivos subidos mediante ngx-dropzone
+  files: File[] = [];
+
+  onSelect(event: NgxDropzoneChangeEvent): void {
+    this.files.push(...event.addedFiles);
+    // Aquí conectas con tu servicio real: subir this.files al backend (Spring Boot)
+    // y disparar la extracción/validación de la factura.
+  } 
+
+  onRemove(file: File): void {
+    this.files.splice(this.files.indexOf(file), 1);
   }
+
+  enviarDocumento(): void {
+
+  if (this.files.length === 0) {
+    return;
+  }
+
+  const file = this.files[0];
+
+  console.log('Enviando documento:', file.name);
+
+  // Aquí posteriormente haces la llamada al backend
+}
 }

@@ -17,10 +17,6 @@
         Plazos
       </a>
       <a href="#">
-        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 20V10M11 20V4M18 20v-7"/></svg>
-        Informes
-      </a>
-      <a href="#">
         <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.87l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.7 1.7 0 0 0-1.87-.34 1.7 1.7 0 0 0-1.03 1.56V21a2 2 0 1 1-4 0v-.09A1.7 1.7 0 0 0 8.98 19a1.7 1.7 0 0 0-1.87.34l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.7 1.7 0 0 0 4.6 15a1.7 1.7 0 0 0-1.56-1.03H3a2 2 0 1 1 0-4h.09A1.7 1.7 0 0 0 4.6 8.98a1.7 1.7 0 0 0-.34-1.87l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.7 1.7 0 0 0 9 4.6a1.7 1.7 0 0 0 1.03-1.56V3a2 2 0 1 1 4 0v.09A1.7 1.7 0 0 0 15 4.6a1.7 1.7 0 0 0 1.87-.34l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.7 1.7 0 0 0 19.4 9c.1.65.55 1.2 1.56 1.03H21a2 2 0 1 1 0 4h-.09A1.7 1.7 0 0 0 19.4 15z"/></svg>
         Ajustes
       </a>
@@ -37,22 +33,61 @@
   </aside>
 
   <!-- MAIN -->
-  <div class="main">    
+  <div class="main">
 
     <div class="content">
 
-      <!-- MAIN UPLOAD DROPZONE -->
-      <div class="dropzone-hero" (click)="onSubirFactura()">
-        <div class="icon-circle-lg">
-          <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 18a4.5 4.5 0 0 1-1-8.9A5 5 0 0 1 16 8h.5a3.5 3.5 0 0 1 .5 7"/><path d="M12 12v7M9 15l3-3 3 3"/></svg>
-        </div>
-        <div class="main-text">Arrastra tu factura aquí</div>
-        <p>o haz clic para seleccionar un archivo desde tu equipo</p>
-        <button mat-flat-button class="btn-primary-custom" (click)="onSubirFactura(); $event.stopPropagation()">
-          <svg class="icon-svg" style="width:18px;height:18px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 16V4M8 8l4-4 4 4"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg>
-          Seleccionar archivo
+      <!-- MAIN UPLOAD DROPZONE (ngx-dropzone) -->
+      <ngx-dropzone
+        class="dropzone-hero"
+        [multiple]="false"
+        accept="application/pdf,image/jpeg,image/png"
+        [maxFileSize]="10485760"
+        (change)="onSelect($event)">
+
+        <ngx-dropzone-label>
+          <div class="icon-circle-lg">
+            <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 18a4.5 4.5 0 0 1-1-8.9A5 5 0 0 1 16 8h.5a3.5 3.5 0 0 1 .5 7"/><path d="M12 12v7M9 15l3-3 3 3"/></svg>
+          </div>
+          <div class="main-text">Arrastra tu factura aquí</div>
+          <p>o haz clic para seleccionar un archivo desde tu equipo</p>
+          <button mat-flat-button type="button" class="btn-primary-custom">
+            <svg class="icon-svg" style="width:18px;height:18px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 16V4M8 8l4-4 4 4"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg>
+            Seleccionar archivo
+          </button>
+          <div class="formats">Formatos admitidos: PDF, JPG, PNG · Máx. 10 MB</div>
+        </ngx-dropzone-label>
+
+        <ngx-dropzone-preview
+          *ngFor="let f of files"
+          [file]="f"
+          [removable]="true"
+          (removed)="onRemove(f)">
+          <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+        </ngx-dropzone-preview>
+
+      </ngx-dropzone>
+      <div class="upload-actions" *ngIf="files.length > 0">
+        <button
+        mat-flat-button
+        type="button"
+        class="btn-primary-custom"
+        (click)="enviarDocumento()">
+
+          <svg
+            class="icon-svg"
+            style="width:18px;height:18px;"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8">
+
+            <path d="M22 2L11 13"/>
+            <path d="M22 2l-7 20-4-9-9-4z"/>
+          </svg>
+
+        Enviar documento
         </button>
-        <div class="formats">Formatos admitidos: PDF, JPG, PNG · Máx. 10 MB</div>
       </div>
 
       <!-- STAT CARDS -->
@@ -68,7 +103,6 @@
               </span>
             </div>
             <div class="stat-value">{{ stat.valor }}</div>
-            <div class="stat-trend" [ngClass]="stat.tendenciaTipo">{{ stat.tendencia }}</div>
           </div>
         </div>
       </div>

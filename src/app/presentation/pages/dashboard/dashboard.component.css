@@ -5,21 +5,13 @@
 
 /* ---------- Sidebar ---------- */
 .sidebar {
-  position: fixed;
-  top: 0;
-  left: 0;
   width: 240px;
-  height: 100vh;
-
+  flex-shrink: 0;
   background: var(--color-primary);
   color: #fff;
   padding: 1.6rem 1.3rem;
-
   display: flex;
   flex-direction: column;
-
-  box-sizing: border-box;
-  z-index: 1000;
 }
 
 .sidebar-brand {
@@ -88,9 +80,8 @@
 
 /* ---------- Main ---------- */
 .main {
-  margin-left: 240px;
-  min-width: 0;
   flex: 1;
+  min-width: 0;
 }
 
 .topbar {
@@ -260,18 +251,23 @@ table.invoice-table {
 }
 
 .dropzone-hero {
-  border: 1.5px dashed var(--color-border);
-  border-radius: 4px;
-  padding: 3.2rem 2rem;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-height: unset !important;
+  border: 1.5px dashed var(--color-border) !important;
+  border-radius: 4px !important;
+  padding: 3.2rem 2rem !important;
   text-align: center;
-  background: var(--color-surface);
+  background: var(--color-surface) !important;
   margin-bottom: 1.5rem;
   transition: border-color 0.2s ease, background 0.2s ease;
   cursor: pointer;
 
   &:hover {
-    border-color: var(--color-accent);
-    background: rgba(184, 146, 90, 0.03);
+    border-color: var(--color-accent) !important;
+    background: rgba(184, 146, 90, 0.03) !important;
   }
 
   .icon-circle-lg {
@@ -309,6 +305,47 @@ table.invoice-table {
   }
 }
 
+:host ::ng-deep ngx-dropzone.dropzone-hero {
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+
+  overflow: hidden !important;
+
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+:host ::ng-deep ngx-dropzone.dropzone-hero > div {
+  width: 100% !important;
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  overflow: hidden !important;
+}
+
+:host ::ng-deep ngx-dropzone.dropzone-hero ngx-dropzone-label {
+  width: 100% !important;
+  height: auto !important;
+  overflow: hidden !important;
+}
+
+:host ::ng-deep ngx-dropzone input[type="file"] {
+  display: none !important;
+}
+
+:host ::ng-deep ngx-dropzone-preview {
+  margin: 0.6rem auto 0 !important;
+}
+
 /* ---------- Upload dropzone (secundario, ya no se usa por defecto) ---------- */
 .dropzone {
   border: 1.5px dashed var(--color-border);
@@ -333,6 +370,14 @@ table.invoice-table {
 
   p { margin: 0; color: var(--color-text-muted); font-size: 0.88rem; }
   .main-text { color: var(--color-text); font-weight: 600; font-size: 0.95rem; margin-bottom: 0.3rem; }
+}
+
+/* ---------- Upload actions (boton de subir) ---------- */
+.upload-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: -0.5rem;
+  margin-bottom: 1.5rem;
 }
 
 /* ---------- Deadline list ---------- */
